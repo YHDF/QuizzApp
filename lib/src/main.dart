@@ -12,11 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Quizz Nutzz',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Quizz Dezz Nutzz Home Page'),
     );
   }
 }
@@ -32,29 +33,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    var dev_width = MediaQuery.of(context).size.width;
-    var dev_height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
 
         title: Text(widget.title),
       ),
-      body:   Container(
-        width: dev_width,
-        height: dev_height,
-        color: Colors.red,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child:  BottomBar(),
-              ),
-            ),
-          ],
-        ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+    ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(IconData(0xe328, fontFamily: 'MaterialIcons')),
+            label: 'Accueil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(IconData(0xe36f, fontFamily: 'MaterialIcons')),
+            label: 'Classement',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(IconData(0xe491, fontFamily: 'MaterialIcons')),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue[800],
+        onTap: _onItemTapped,
       ),
     );
   }
