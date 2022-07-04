@@ -23,31 +23,35 @@ class ClassementState extends State<Classement> {
     var dev_width = MediaQuery.of(context).size.width;
     var dev_height = MediaQuery.of(context).size.height;
     return Container(
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment(-1, -1),
-          end: Alignment(1, 1),
-          colors: [
-            Color(0xFF5b86e5),
-            Color(0xFF9baefa),
-          ],
-        ),
+      color: Colors.blueAccent,
+      child: Column(
+        children: [
+          Divider(
+            height: dev_height / 20,
+
+          ),
+          SizedBox(
+            height: dev_height / 25,
+            child: const Text(
+              "Liste des top joueurs : ",
+              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25, color: Colors.white),
+            ),
+          ),
+          Container(
+            height: 10 * dev_height / 12,
+            child: ListView.separated(
+                separatorBuilder: (BuildContext context, int index) => Divider(
+                  height: 10,
+                      color: Colors.transparent,
+
+                    ),
+                itemCount: 10,
+                itemBuilder: (BuildContext context, int index) {
+                  return Carte();
+                }),
+          ),
+        ],
       ),
-      child: ListView.separated(
-          separatorBuilder: (BuildContext context, int index) => Divider(
-            height: 10,
-                color: Colors.white,
-                indent: dev_height > dev_width
-                    ? dev_width / 16.48
-                    : dev_height / 16.48,
-                endIndent: dev_height > dev_width
-                    ? dev_width / 16.48
-                    : dev_height / 16.48,
-              ),
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Carte();
-          }),
     );
   }
 }

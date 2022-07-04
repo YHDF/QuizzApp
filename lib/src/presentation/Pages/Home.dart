@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:quizz_dezz_nutzz/src/main.dart';
+
+import '../../GlobalVariables.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -22,7 +25,7 @@ class HomeState extends State<Home> {
     return Container(
       width: dev_width,
       height: dev_height,
-      color: Colors.amber,
+      color: Colors.blueAccent,
 
     );
   }
