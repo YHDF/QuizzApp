@@ -61,34 +61,27 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-        title: Text(widget.title),
+      bottomNavigationBar: Visibility(
+        child: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(IconData(0xe328, fontFamily: 'MaterialIcons')),
+              label: 'Accueil',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconData(0xe36f, fontFamily: 'MaterialIcons')),
+              label: 'Classement',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(IconData(0xe491, fontFamily: 'MaterialIcons')),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.blue[800],
+          onTap: _onItemTapped,
+        ),
       ),
-      /* body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(IconData(0xe328, fontFamily: 'MaterialIcons')),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(IconData(0xe36f, fontFamily: 'MaterialIcons')),
-            label: 'Classement',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(IconData(0xe491, fontFamily: 'MaterialIcons')),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue[800],
-        onTap: _onItemTapped,
-      ), */
-
-
       body: SafeArea(
         child: Container(
           width: double.infinity,
@@ -141,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   "Login",
                   style:
                   TextStyle(
-                    fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white70
+                      fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white70
                   ),
                 ),
               ),
@@ -160,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: const Text(
                   "Sign UP",
                   style: TextStyle(
-                  fontWeight: FontWeight.w600,fontSize: 16,
+                    fontWeight: FontWeight.w600,fontSize: 16,
                   ),
                 ),
               ),
