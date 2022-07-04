@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'application/login.dart';
+import 'application/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,9 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
         title: Text(widget.title),
       ),
-      body: Center(
+      /* body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
-    ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -84,6 +86,87 @@ class _MyHomePageState extends State<MyHomePage> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue[800],
         onTap: _onItemTapped,
+      ), */
+
+
+      body: SafeArea(
+        child: Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 70),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    "Hello There!",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 40),
+                  ),
+                  const SizedBox(height: 30),
+                  Text("Create an account or login to start playing.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.grey[700],
+                        fontSize: 15
+                    ),
+                  ),
+                ],
+              ),
+
+              // Image login
+              Container(
+                height: MediaQuery.of(context).size.height/3,
+                decoration: const BoxDecoration(
+                    image:DecorationImage(image: AssetImage('assets/Illustration.png'))
+                ),
+              ),
+
+              // Login button
+              MaterialButton(
+                minWidth: double.infinity,
+                height:60,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                },
+                color: Colors.indigoAccent[400],
+                shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      color: Colors.black,
+                    ),
+                    borderRadius: BorderRadius.circular(40)
+                ),
+                child: const Text(
+                  "Login",
+                  style:
+                  TextStyle(
+                    fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white70
+                  ),
+                ),
+              ),
+
+              // Signup button
+              MaterialButton(
+                minWidth: double.infinity,
+                height:60,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupPage()));
+                },
+                color: Colors.redAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)
+                ),
+                child: const Text(
+                  "Sign UP",
+                  style: TextStyle(
+                  fontWeight: FontWeight.w600,fontSize: 16,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
