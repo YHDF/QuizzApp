@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/BottomBar.dart';
 
 void main() {
   runApp(const MyApp());
