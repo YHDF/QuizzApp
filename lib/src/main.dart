@@ -51,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Align(
                   alignment: Alignment.bottomCenter,
                   child:  BottomBar(),
-
               ),
             ),
           ],
