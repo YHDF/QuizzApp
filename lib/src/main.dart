@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:quizz_dezz_nutzz/src/presentation/Widgets/Bootstrap.dart';
-import 'application/signup.dart';
+import 'package:quizz_dezz_nutzz/src/presentation/Pages/Signup.dart';
+import 'package:firebase_core/firebase_core.dart';
+import '../firebase_options.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 
 }
@@ -52,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          color: Colors.blueAccent,
+        color: Colors.blueAccent,
         child: SafeArea(
           child: Container(
             width: double.infinity,
