@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:quizz_dezz_nutzz/src/presentation/Pages/Classement.dart';
 import 'package:quizz_dezz_nutzz/src/presentation/Pages/Home.dart';
+import 'package:quizz_dezz_nutzz/src/presentation/Pages/UserProfile.dart';
 
 
 class Bootstrap extends StatefulWidget {
@@ -12,7 +13,7 @@ class Bootstrap extends StatefulWidget {
 
 class BootstrapState extends State<Bootstrap> {
 
-  final List<Widget> _tabItems = [Home(), Classement(), Container(),];
+  final List<Widget> _tabItems = [Home(), Classement(), UserProfile(),];
   int _activePage = 0;
 
   @override

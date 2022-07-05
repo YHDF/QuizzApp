@@ -64,6 +64,30 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+<<<<<<< HEAD
+=======
+  firebase_core:
+    dependency: "direct main"
+    description:
+      name: firebase_core
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.19.1"
+  firebase_core_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_core_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.4.3"
+  firebase_core_web:
+    dependency: transitive
+    description:
+      name: firebase_core_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.6"
+>>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   flutter:
     dependency: "direct main"
     description: flutter
@@ -76,11 +100,26 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_profile_picture:
+    dependency: "direct main"
+    description:
+      name: flutter_profile_picture
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+<<<<<<< HEAD
+=======
+  flutter_web_plugins:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+>>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   http:
     dependency: "direct main"
     description:
@@ -95,6 +134,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+<<<<<<< HEAD
+=======
+  js:
+    dependency: transitive
+    description:
+      name: js
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.4"
+>>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   lints:
     dependency: transitive
     description:
@@ -130,6 +179,16 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
+<<<<<<< HEAD
+=======
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.2"
+>>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   sky_engine:
     dependency: transitive
     description: flutter
@@ -193,3 +252,7 @@ packages:
     version: "2.1.2"
 sdks:
   dart: ">=2.17.0-0 <3.0.0"
+<<<<<<< HEAD
+=======
+  flutter: ">=1.17.0"
+>>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
