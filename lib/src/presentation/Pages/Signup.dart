@@ -1,8 +1,10 @@
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'login.dart';
+import 'package:http/http.dart' as http;
+import 'Login.dart';
 
 class SignupPage extends StatelessWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -38,7 +40,7 @@ class SignupPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),),
                         const SizedBox(height: 20),
-                        Text("Create an Account,Its free",style: TextStyle(
+                        Text("Create an account, it's free",style: TextStyle(
                           fontSize: 15,
                           color: Colors.grey[700],
                         ),),
@@ -53,39 +55,31 @@ class SignupPage extends StatelessWidget {
                         children: [
                           makeInput(label: "Email"),
                           makeInput(label: "Password",obsureText: true),
-                          makeInput(label: "Confirm Password",obsureText: true)
+                          makeInput(label: "Confirm Password",obsureText: true),
+                          MaterialButton(
+                            minWidth: double.infinity,
+                            height:60,
+                            onPressed: (){
+                            },
+                            color: Colors.blueAccent[400],
+                            shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                  color: Colors.transparent,
+                                ),
+                                borderRadius: BorderRadius.circular(40)
+                            ),
+                            child: const Text(
+                              "Sign up",
+                              style:
+                              TextStyle(
+                                  fontWeight: FontWeight.w600,fontSize: 20,color: Colors.white
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 40),
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 3,left: 3),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: const Border(
-                                bottom: BorderSide(color: Colors.black),
-                                top: BorderSide(color: Colors.black),
-                                right: BorderSide(color: Colors.black),
-                                left: BorderSide(color: Colors.black)
-                            )
-                        ),
-                        child: MaterialButton(
-                          minWidth: double.infinity,
-                          height:60,
-                          onPressed: (){},
-                          color: Colors.redAccent,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40)
-                          ),
-                          child: const Text("Sign Up",style: TextStyle(
-                            fontWeight: FontWeight.w600,fontSize: 16,
-
-                          ),),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -100,11 +94,9 @@ class SignupPage extends StatelessWidget {
                             ),
                           ),
                         ),
-
                       ],
                     )
                   ],
-
                 ),
               ],
             ),
