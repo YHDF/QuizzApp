@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class Carte extends StatefulWidget {
+class CarteVerticale extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => CarteState();
+  State<StatefulWidget> createState() => CarteVerticaleState();
 }
 
-class CarteState extends State<Carte> {
+class CarteVerticaleState extends State<CarteVerticale> {
   @override
   Widget build(BuildContext context) {
     var dev_width = MediaQuery.of(context).size.width;

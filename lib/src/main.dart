@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Pages/Home.dart';
+import 'package:flutter/services.dart';
 import 'package:quizz_dezz_nutzz/src/presentation/Widgets/Bootstrap.dart';
 import 'application/signup.dart';
 
 void main() {
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -39,7 +40,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState(){
     super.initState();
+  }
 
+
+  @override
+  void dispose(){
+    super.dispose();
   }
 
   @override

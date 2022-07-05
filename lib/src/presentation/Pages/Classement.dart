@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/Carte.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/Carte.dart';
+import 'package:quizz_dezz_nutzz/src/presentation/Widgets/CarteVerticale.dart';
 
 class Classement extends StatefulWidget {
   @override
@@ -8,8 +7,8 @@ class Classement extends StatefulWidget {
 }
 
 class ClassementState extends State<Classement> {
-  var cartesClassement = List<Carte>.generate(10, (index) {
-    return new Carte();
+  var cartesClassement = List<CarteVerticale>.generate(10, (index) {
+    return new CarteVerticale();
   });
 
   @override
@@ -47,7 +46,7 @@ class ClassementState extends State<Classement> {
                     ),
                 itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
-                  return Carte();
+                  return CarteVerticale();
                 }),
           ),
         ],
