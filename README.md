@@ -1,4 +1,4 @@
-# quizz_dezz_nutzz
+# quizz_game
 
 A new Flutter project.
 

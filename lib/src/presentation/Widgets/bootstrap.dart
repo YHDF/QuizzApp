@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Pages/Classement.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Pages/Home.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Pages/UserProfile.dart';
+import 'package:quizz_game/src/presentation/Pages/classement.dart';
+import 'package:quizz_game/src/presentation/Pages/home.dart';
+import 'package:quizz_game/src/presentation/Pages/userProfile.dart';
 
 
 class Bootstrap extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:quizz_dezz_nutzz/src/main.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/CarteHorizontale.dart';
+import 'package:quizz_game/src/main.dart';
+import 'package:quizz_game/src/presentation/Widgets/carteHorizontale.dart';
 
-import '../../GlobalVariables.dart';
+import '../../globalVariables.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -68,7 +68,6 @@ class HomeState extends State<Home> {
                 Divider(height: dev_height / 14, color: Colors.transparent),
                 Container(
                   width: dev_width,
-                  height: dev_height / 2.5,
                   child: Column(
                     children: [
                       SizedBox(
@@ -113,6 +112,34 @@ class HomeState extends State<Home> {
                               const VerticalDivider(
                             thickness: 5,
                             color: Colors.transparent,
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        height: 15,
+                      ),
+                      Container(
+                        alignment: Alignment(0, 0),
+                        width: dev_width / 3,
+                        height: dev_height / 12,
+                        child: MaterialButton(
+                          minWidth: double.infinity,
+                          height:60,
+                          onPressed: (){
+                          },
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                color: Colors.transparent,
+                              ),
+                              borderRadius: BorderRadius.circular(40)
+                          ),
+                          child: const Text(
+                            "Play",
+                            style:
+                            TextStyle(
+                                fontWeight: FontWeight.w100,fontSize: 20,color: Colors.blueAccent
+                            ),
                           ),
                         ),
                       ),

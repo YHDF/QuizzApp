@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/CarteVerticale.dart';
+import 'package:quizz_game/src/presentation/Widgets/carteVerticale.dart';
 
 class Classement extends StatefulWidget {
   @override

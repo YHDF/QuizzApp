@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/BackgroundClipper.dart';
-import '../../domain/User.dart';
+import 'package:quizz_game/src/presentation/Widgets/backgroundClipper.dart';
+import '../../data/entities/user.dart';
 
 class UserProfile extends StatefulWidget {
   @override
@@ -9,11 +9,10 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
 
-  final User user = const User(userId: 1,
-      imagePath: "https://images.unsplash.com/photo-1554151228-14d9def656e4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=333&q=80",
-      name: 'Sarah Abs',
-      email: 'sarah.abs@gmail.com',
-      token: '');
+  final TriviaUser user =  TriviaUser(
+    id: 1,
+    pseudo: 'Name',
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +135,7 @@ class _UserProfileState extends State<UserProfile> {
         ClipPath(
           clipper: BackgroundClipper(),
           child: Container(
-              alignment: Alignment(0, -0.8),
+              alignment: const Alignment(0, -0.8),
               color: Color.fromRGBO(255, 255, 255, 1),
               child : Container(
                 alignment: Alignment(0,-0.8),

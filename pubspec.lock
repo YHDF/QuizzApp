@@ -36,6 +36,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  cloud_firestore:
+    dependency: "direct main"
+    description:
+      name: cloud_firestore
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.1"
+  cloud_firestore_platform_interface:
+    dependency: transitive
+    description:
+      name: cloud_firestore_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.5.10"
+  cloud_firestore_web:
+    dependency: transitive
+    description:
+      name: cloud_firestore_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.6.19"
   collection:
     dependency: transitive
     description:
@@ -64,8 +85,27 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-<<<<<<< HEAD
-=======
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.1"
+  firebase_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_auth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.3.1"
+  firebase_auth_web:
+    dependency: transitive
+    description:
+      name: firebase_auth_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.3.19"
   firebase_core:
     dependency: "direct main"
     description:
@@ -87,7 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.6"
->>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   flutter:
     dependency: "direct main"
     description: flutter
@@ -112,14 +151,11 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
   flutter_web_plugins:
     dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
->>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   http:
     dependency: "direct main"
     description:
@@ -134,8 +170,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
-<<<<<<< HEAD
-=======
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -143,7 +184,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
->>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   lints:
     dependency: transitive
     description:
@@ -179,8 +219,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-<<<<<<< HEAD
-=======
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -188,7 +226,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
->>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df
   sky_engine:
     dependency: transitive
     description: flutter
@@ -252,7 +289,4 @@ packages:
     version: "2.1.2"
 sdks:
   dart: ">=2.17.0-0 <3.0.0"
-<<<<<<< HEAD
-=======
   flutter: ">=1.17.0"
->>>>>>> 0bc1c8b3e217b77edc9c5a56f2b3c771a85b35df

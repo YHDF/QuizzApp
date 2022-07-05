@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Widgets/Bootstrap.dart';
-import 'package:quizz_dezz_nutzz/src/presentation/Pages/Signup.dart';
+import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
+import 'package:quizz_game/src/presentation/Pages/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../firebase_options.dart';
 
