@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:quizz_game/src/data/entities/user.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/presentation/Pages/signup/signupCubit.dart';
@@ -23,7 +24,7 @@ class _SignupPageState extends State<SignUp> {
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
   SignUpCubit? cubit;
-
+  TriviaUser user = TriviaUser(games: 1, pseudo: "yhd", score: 1);
 
   void _handleSubmitted(String value) {
     _focusScopeNode.nextFocus();
@@ -46,10 +47,10 @@ class _SignupPageState extends State<SignUp> {
       ),
       body: MultiRepositoryProvider(
         providers: [
-          RepositoryProvider<UserRepository>(
+          RepositoryProvider<UserRepository?>(
             create: (context) => UserRepository.getInstance(),
           ),
-          RepositoryProvider<AuthRepository>(
+          RepositoryProvider<AuthRepository?>(
             create: (context) => AuthRepository.getInstance(),
           ),
         ],
@@ -230,6 +231,7 @@ class _SignupPageState extends State<SignUp> {
                                         /* email = _controllerEmail.text;
                                         password = _controllerPassword.text; */
                                         print(_controllerEmail.text.toString());
+                                        cubit?.registerUser(_controllerEmail.text, _controllerPassword.text, user);
                                       }
                                     },
                                     child: Container(

@@ -6,7 +6,7 @@ class QuestionRepository {
   static QuestionRepository? _instance;
   static final QuestionFireBase _questionFireBase = QuestionFireBase.getInstance();
 
-  static QuestionRepository getInstance(){
+  static QuestionRepository? getInstance(){
     _instance ??= QuestionRepository._();
     return _instance;
   }

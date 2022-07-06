@@ -6,7 +6,7 @@ class AuthRepository {
   static AuthRepository? _instance;
   static final AuthFirebase _authFirebase = AuthFirebase.getInstance();
 
-  static AuthRepository getInstance(){
+  static AuthRepository? getInstance(){
     _instance ??= AuthRepository._();
     return _instance;
   }

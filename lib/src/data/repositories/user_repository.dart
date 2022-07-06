@@ -6,7 +6,7 @@ class UserRepository {
   static UserRepository? _instance;
   static final UserFireBase _userFireBase = UserFireBase.getInstance();
 
-  static UserRepository getInstance(){
+  static UserRepository? getInstance(){
     _instance ??= UserRepository._();
     return _instance;
   }
