@@ -1,16 +1,11 @@
-
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:quizz_game/src/data/entities/user.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/presentation/Pages/signup/signupCubit.dart';
 import 'package:quizz_game/src/presentation/Pages/signup/signupState.dart';
-import 'login.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -23,8 +18,8 @@ class _SignupPageState extends State<SignUp> {
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
+  final _controllerPseudo = TextEditingController();
   SignUpCubit? cubit;
-  TriviaUser user = TriviaUser(games: 1, pseudo: "yhd", score: 1);
 
   void _handleSubmitted(String value) {
     _focusScopeNode.nextFocus();
@@ -32,8 +27,6 @@ class _SignupPageState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    var dev_width = MediaQuery.of(context).size.width;
-    var dev_height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -81,230 +74,152 @@ class _SignupPageState extends State<SignUp> {
               if(state is Saved) {
                 return Container();
               }
-              return SafeArea(
-                child: SingleChildScrollView(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    width: double.infinity,
-                    child: Form(
+              return SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Form(
                       key: _formKey,
                       child: FocusScope(
                         node: _focusScopeNode,
                         child: Column(
-                          children: <Widget>[
-                            Container(
-                              height: dev_height / 7.32,
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment(-1, 1),
-                                    child: Container(
-                                      width: dev_width / 5.70,
-                                      height: dev_height / 14.64,
-                                      alignment: Alignment(0, 0.2),
-                                      child: Icon(
-                                        IconData(0xe081, fontFamily: 'MaterialIcons'),
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment(1, 1),
-                                    child: Container(
-                                      width: dev_width / 1.7,
-                                      height: dev_height / 14.64,
-                                      alignment: Alignment(1, 1),
-                                      child: TextFormField(
-                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.w100),
-                                        onTap: () {},
-                                        textInputAction: TextInputAction.next,
-                                        onFieldSubmitted: _handleSubmitted,
-                                        controller: _controllerEmail,
-                                        keyboardType: TextInputType.emailAddress,
-                                        validator: (value) {
-                                          if (value != null && value.isEmpty) {
-                                            return 'Email is required';
-                                          }
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Colors.black,
-                                                width: 0.5,
-                                              ),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 0.5
-                                              ),
-                                            ),
-                                            hintText: 'Email Address',
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.w100,
-                                              color: Colors.black,
-                                              fontSize: dev_height > dev_width
-                                                  ? dev_height / 29.28
-                                                  : dev_height / 16.48,
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              height: dev_height / 7.32,
-                              child: Row(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment(-1, 1),
-                                    child: Container(
-                                      width: dev_width / 5.70,
-                                      height: dev_height / 14.64,
-                                      alignment: Alignment(0, 0.2),
-                                      child: Icon(
-                                        IconData(0xe47a, fontFamily: 'MaterialIcons'),
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment(1, 1),
-                                    child: Container(
-                                      width: dev_width / 1.7,
-                                      height: dev_height / 14.64,
-                                      alignment: Alignment(1, 1),
-                                      child: TextFormField(
-                                        obscureText: true,
-                                        style: TextStyle(color: Colors.black,fontWeight: FontWeight.w100),
-                                        validator: (value) {
-                                          if (value != null && value.isEmpty) {
-                                            return 'Password is required';
-                                          }
-                                          return null;
-                                        },
-                                        textInputAction: TextInputAction.previous,
-                                        onFieldSubmitted: _handleSubmitted,
-                                        controller: _controllerPassword,
-                                        decoration: InputDecoration(
-                                            enabledBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Colors.black,
-                                                width: 0.5,
-                                              ),
-                                            ),
-                                            focusedBorder: UnderlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 0.5
-                                              ),
-                                            ),
-                                            hintText: 'Password',
-                                            hintStyle: TextStyle(
-                                              fontWeight: FontWeight.w100,
-                                              color: Colors.black,
-                                              fontSize: dev_height > dev_width
-                                                  ? dev_height / 29.28
-                                                  : dev_height / 16.48,
-                                            )),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              height: dev_height / 6,
-                              alignment: Alignment(0, 1.4),
-                              child: Container(
-                                height: dev_height / 18,
-                                child: OverflowBox(
-                                  maxWidth: dev_width,
-                                  maxHeight: dev_height / 18,
-                                  child: FlatButton(
-                                    splashColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onPressed: () {
-                                      if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-                                        /* email = _controllerEmail.text;
-                                        password = _controllerPassword.text; */
-                                        print(_controllerEmail.text.toString());
-                                        cubit?.registerUser(_controllerEmail.text, _controllerPassword.text, user);
+                          children: [
+                            Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    const Text ("Sign Up", style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),),
+                                    const SizedBox(height: 20,),
+                                    Text("It's free!",style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey[700],
+                                    ),),
+                                    const SizedBox(height: 30,)
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                                  child: TextFormField(
+                                    onTap: () {},
+                                    textInputAction: TextInputAction.next,
+                                    onFieldSubmitted: _handleSubmitted,
+                                    controller: _controllerPseudo,
+                                    validator: (value) {
+                                      if (value != null && value.isEmpty) {
+                                        return 'Pseudo is required';
                                       }
+                                      return null;
                                     },
-                                    child: Container(
-                                      width: dev_width / 1.648,
-                                      height: dev_height / 14,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: Colors.transparent,
-                                          width: 0,
+                                    decoration: const InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
                                         ),
-                                        borderRadius: BorderRadius.circular(10),
-                                        gradient: LinearGradient(
-                                          begin: Alignment(-1, -1),
-                                          end: Alignment(1, 1),
-                                          colors: [
-                                            const Color.fromRGBO(134, 143, 150, 1),
-                                            const Color.fromRGBO(89, 97, 100, 1),
-                                          ], // whitish to gray
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          'SIGN IN',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            color: Colors.black,
-                                            fontSize: dev_height > dev_width
-                                                ? dev_height / 24.4
-                                                : dev_height / 13.74,
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black,
+                                              width: 0.5
                                           ),
                                         ),
+                                        hintText: 'Pseudo'),
+                                  ),
+                                ),
+                                const Divider(),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                                  child: TextFormField(
+                                    onTap: () {},
+                                    textInputAction: TextInputAction.next,
+                                    onFieldSubmitted: _handleSubmitted,
+                                    controller: _controllerEmail,
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      if (value != null && value.isEmpty) {
+                                        return 'Email is required';
+                                      }
+                                      return null;
+                                    },
+                                    decoration: const InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.black,
+                                              width: 0.5
+                                          ),
+                                        ),
+                                        hintText: 'Email Address'),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40),
+                              child: TextFormField(
+                                obscureText: true,
+                                onTap: () {},
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: _handleSubmitted,
+                                controller: _controllerPassword,
+                                validator: (value) {
+                                  if (value != null && value.isEmpty) {
+                                    return 'Password is required';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                    enabledBorder: OutlineInputBorder(
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black,
+                                          width: 0.5
                                       ),
                                     ),
+                                    hintText: 'Password'),
+                              ),
+                            ),
+                            const Divider(),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                ),
+                                child: MaterialButton(
+                                  minWidth: double.infinity,
+                                  height: 60,
+                                  onPressed: () {
+                                    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                                      TriviaUser user = TriviaUser(score: 0, pseudo: _controllerPseudo.text, avatar: "", games: 0);
+                                      cubit?.registerUser(_controllerEmail.text, _controllerPassword.text, user);
+                                    }
+                                  },
+                                  color: Colors.redAccent[400],
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(40)
                                   ),
+                                  child: const Text("Sign Up",style: TextStyle(
+                                      fontWeight: FontWeight.w600,fontSize: 16,color: Colors.white70
+                                  ),),
                                 ),
                               ),
                             ),
                           ],
-                        ),),),),),);
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
         ),
       ),
     );
   }
-}
-
-Widget makeInput({label,obsureText = false}){
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(label,style:const TextStyle(
-          fontSize: 15,
-          fontWeight: FontWeight.w400,
-          color: Colors.black87
-      ),),
-      const SizedBox(height: 5,),
-      TextField(
-        obscureText: obsureText,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey,
-            ),
-          ),
-          border: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey)
-          ),
-        ),
-      ),
-      const SizedBox(height: 30)
-
-    ],
-  );
 }

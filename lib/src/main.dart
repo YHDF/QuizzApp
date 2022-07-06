@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quizz_game/src/presentation/Pages/login.dart';
 import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
 import 'package:quizz_game/src/presentation/Pages/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -101,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minWidth: double.infinity,
                   height:60,
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Bootstrap()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
                   },
                   color: Colors.blueAccent[400],
                   shape: RoundedRectangleBorder(

@@ -55,15 +55,8 @@ class LoginPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 40),
                   child: Container(
-                    padding: const EdgeInsets.only(top: 3,left: 3),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
-                        border: const Border(
-                            bottom: BorderSide(color: Colors.black),
-                            top: BorderSide(color: Colors.black),
-                            right: BorderSide(color: Colors.black),
-                            left: BorderSide(color: Colors.black)
-                        )
                     ),
                     child: MaterialButton(
                       minWidth: double.infinity,
@@ -79,19 +72,8 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text("Dont have an account?"),
-                    Text("Sign Up",style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                    ),),
-                  ],
-                )
+                const SizedBox(height: 20),
               ],
-
             ),
           ],
         ),
