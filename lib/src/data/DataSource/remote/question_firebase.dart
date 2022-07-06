@@ -18,8 +18,8 @@ class QuestionFireBase{
       _questionRef = _firebaseFirestore.collection('questionOfTheDay').withConverter<QuestionOfTheDay>(
           fromFirestore: (snapshot, _) => QuestionOfTheDay.fromJson(snapshot.data()!),
           toFirestore: (questionOfTheDay, _) => questionOfTheDay.toJson(),
-          _instance = QuestionFireBase._();
       );
+      _instance = QuestionFireBase._();
     }
     return _instance!;
   }

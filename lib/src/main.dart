@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minWidth: double.infinity,
                   height:60,
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignupPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUp()));
                   },
                   color: Colors.white,
                   shape: RoundedRectangleBorder(

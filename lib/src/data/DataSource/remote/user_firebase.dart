@@ -17,8 +17,8 @@ class UserFireBase{
       _userRef = _firebaseFirestore.collection('users').withConverter<TriviaUser>(
           fromFirestore: (snapshot, _) => TriviaUser.fromJson(snapshot.data()!),
           toFirestore: (user, _) => user.toJson(),
-          _instance = UserFireBase._();
       );
+      _instance = UserFireBase._();
     }
     return _instance!;
   }
