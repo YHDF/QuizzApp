@@ -29,11 +29,14 @@ class QuestionFireBase{
     return;
   }
 
-  Future<QuestionOfTheDay?> getQuestions() async{
+  Future<QuestionOfTheDay> getQuestions() async{
     var document =  await _questionRef.doc().get();
-    return document.data();
+    return document.data()!;
   }
 
+  String getId() {
+    return _questionRef.id;
+  }
 
   Future<void> deleteQuestions(String id) async {
     return _questionRef.doc(id).delete();
