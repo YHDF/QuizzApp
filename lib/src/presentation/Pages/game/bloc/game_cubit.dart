@@ -10,7 +10,7 @@ class GameCubit extends Cubit<GameState> {
 
   Future<void> fetchWord() async {
     try {
-      final List<Question>? list = await questionRepository.getFilteredQuestions();
+      final List<Question>? list = await questionRepository.getQuestions();
       // print(list?.first.question);
       emit(Loaded(list!));
     } on Exception catch(exception) {

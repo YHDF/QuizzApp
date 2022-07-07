@@ -16,16 +16,18 @@ class QuestionApi {
 
   QuestionApi._();
 
-  Future<List<Question>> getQuestionsOfTheDay() async {
-    final queryParameters = {'amount' : '5' };
+  Future<List<Question>?> getQuestionsOfTheDay() async {
+    final queryParameters = {'amount' : '10' };
     final url = Uri.http(_baseUrl, 'api.php', queryParameters);
 
-    final response = await http.get(url);
-    if(response.statusCode == 200) {
-      QuestionOfTheDay questionOfTheDay = QuestionOfTheDay.fromJson(jsonDecode(response.body));
-      return questionOfTheDay.results!;
-    } else {
+
+    await Future<QuestionOfTheDay> (() async {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        return QuestionOfTheDay.fromJson(jsonDecode(response.body));
+      } else {
       throw Exception("Failed to load questions");
-    }
+      }
+    }).then((value) => print(value));
   }
 }

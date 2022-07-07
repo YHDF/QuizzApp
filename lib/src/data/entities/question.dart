@@ -1,30 +1,45 @@
 class Question{
 
    String? _question;
-   List<String>? _reponseIncorrectes;
-   List<String>? _reponsesCorrectes;
+   String? _category;
+   String? _difficulty;
+   String? _type;
+   List<String>? _incorrectAnswers;
+   String? _correctAnswer;
 
   Question(
-this._question, this._reponseIncorrectes, this._reponsesCorrectes,
+this._question, this._incorrectAnswers, this._correctAnswer, this._category, this._difficulty, this._type
   ) ;
 
   Question.fromJson(dynamic json) {
     _question = json['question'];
-    _reponseIncorrectes = json['reponseIncorrectes'];
-    _reponsesCorrectes = json['reponsesCorrectes'];
+    _correctAnswer = json['correct_answer'];
+    _incorrectAnswers = json['incorrect_answers'];
+    _category = json['category'];
+    _difficulty = json['_difficulty'];
+    _type = json['type'];
   }
 
   String? get question => _question;
 
-  List<String>? get reponseIncorrectes => _reponseIncorrectes;
+  List<String>? get incorrectAnswers => _incorrectAnswers;
 
-  List<String>? get reponsesCorrectes => _reponsesCorrectes;
+  String? get correctAnswer => _correctAnswer;
+
+   String? get category => _category;
+
+   String? get difficulty => _difficulty;
+
+   String? get type => _type;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['question'] = _question;
-    map['reponseIncorrectes'] = _reponseIncorrectes;
-    map['reponsesCorrectes'] = _reponsesCorrectes;
+    map['correct_answer'] = _correctAnswer;
+    map['incorrect_answers'] = _incorrectAnswers;
+    map['category'] = _category;
+    map['_difficulty'] = _difficulty;
+    map['type']= _type;
     return map;
   }
 
