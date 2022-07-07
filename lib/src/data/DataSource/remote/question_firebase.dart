@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quizz_game/src/data/entities/questionOfTheDay.dart';
+import 'package:quizz_game/src/data/entities/question_of_the_day.dart';
 
-import '../../entities/questionOfTheDay.dart';
+import '../../entities/question_of_the_day.dart';
 
 class QuestionFireBase{
   static final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;

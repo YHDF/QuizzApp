@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quizz_game/src/data/entities/user.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
-import 'package:quizz_game/src/presentation/Pages/signup/signupCubit.dart';
-import 'package:quizz_game/src/presentation/Pages/signup/signupState.dart';
+import 'package:quizz_game/src/presentation/Pages/signup/signup_cubit.dart';
+import 'package:quizz_game/src/presentation/Pages/signup/signup_state.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

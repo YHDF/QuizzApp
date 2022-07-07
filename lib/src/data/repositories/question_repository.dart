@@ -1,5 +1,5 @@
 import 'package:quizz_game/src/data/DataSource/remote/question_firebase.dart';
-import 'package:quizz_game/src/data/entities/questionOfTheDay.dart';
+import 'package:quizz_game/src/data/entities/question_of_the_day.dart';
 
 class QuestionRepository {
 

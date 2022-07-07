@@ -84,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       style: TextStyle(fontWeight: FontWeight.w500, fontSize: 25, color: Colors.white),
                     ),
                     SizedBox(height: 30),
-                    Text("Create an account or login to start playing.",
+                    Text("Create an account or signin to start playing.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Colors.white,
@@ -102,7 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   minWidth: double.infinity,
                   height:60,
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInPage()));
                   },
                   color: Colors.blueAccent[400],
                   shape: RoundedRectangleBorder(

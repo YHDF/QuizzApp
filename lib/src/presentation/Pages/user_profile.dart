@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_game/src/presentation/Widgets/backgroundClipper.dart';
-import 'package:quizz_game/src/presentation/Widgets/carteProfile.dart';
+import 'package:quizz_game/src/presentation/Widgets/background_clipper.dart';
+import 'package:quizz_game/src/presentation/Widgets/carte_profile.dart';
 import '../../data/entities/user.dart';
 
 class UserProfile extends StatefulWidget {

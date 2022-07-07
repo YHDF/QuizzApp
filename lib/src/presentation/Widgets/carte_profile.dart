@@ -23,7 +23,7 @@ class CarteProfile extends StatelessWidget {
       ),
       child: Center(
         child: Text(
-           text ?? "nullls",
+           text,
           style: const TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w400,

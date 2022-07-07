@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:quizz_game/src/presentation/Pages/classement.dart';
 import 'package:quizz_game/src/presentation/Pages/home.dart';
-import 'package:quizz_game/src/presentation/Pages/userProfile.dart';
+import 'package:quizz_game/src/presentation/Pages/user_profile.dart';
 
 
 class Bootstrap extends StatefulWidget {
