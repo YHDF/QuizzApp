@@ -4,6 +4,4 @@ import 'dart:ffi';
 
 
 class GlobalVariables{
-
-
 }
