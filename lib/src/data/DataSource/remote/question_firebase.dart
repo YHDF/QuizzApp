@@ -16,7 +16,7 @@ class QuestionFireBase{
 
   static QuestionFireBase getInstance(){
     if(_instance == null){
-      _questionRef = _firebaseFirestore.collection('questionOfTheDay').withConverter<QuestionOfTheDay>(
+      _questionRef = _firebaseFirestore.collection('questionsOfTheDay').withConverter<QuestionOfTheDay>(
           fromFirestore: (snapshot, _) => QuestionOfTheDay.fromJson(snapshot.data()!),
           toFirestore: (questionOfTheDay, _) => questionOfTheDay.toJson(),
       );

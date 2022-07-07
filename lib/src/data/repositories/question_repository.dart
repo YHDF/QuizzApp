@@ -29,16 +29,15 @@ class QuestionRepository {
 
   Future<List<Question>?> getQuestions() async{
     List<Question>? list = await getFilteredQuestions();
-    QuestionOfTheDay questionOfTheDay = QuestionOfTheDay(results: list, date: _getdate());
+    QuestionOfTheDay questionOfTheDay = QuestionOfTheDay(results: list, date: "8/2/2022", responseCode: 200);
 
     if(questionOfTheDay.date == _getdate()) {
       return questionOfTheDay.results;
     } else {
       List<Question>? questions = await getFilteredQuestions();
-      QuestionOfTheDay questionOfTheDay = QuestionOfTheDay(results: list, date: _getdate());
-
-      deleteQuestions();
-      insertQuestions(questionOfTheDay);
+      QuestionOfTheDay questionOfTheDay = QuestionOfTheDay(results: questions, date: _getdate(), responseCode: 200);
+      await insertQuestions(questionOfTheDay);
+      await deleteQuestions();
       return questions!;
     }
   }

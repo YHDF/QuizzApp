@@ -4,7 +4,7 @@ import 'package:quizz_game/src/data/entities/question.dart';
 class QuestionOfTheDay{
   int? responseCode;
   String date = '';
-  List<dynamic>? results;
+  List<Question>? results;
 
   QuestionOfTheDay({this.responseCode, this.results, required this.date});
 
@@ -12,7 +12,10 @@ class QuestionOfTheDay{
   QuestionOfTheDay.fromJson(Map<String, dynamic> json){
     responseCode = json['response_code'];
     if(json['results'] != null){
-      results = json['results'];
+      results = <Question>[];
+      json['results'].forEach((v){
+        results!.add(Question.fromJson(v));
+      });
     }
   }
 
