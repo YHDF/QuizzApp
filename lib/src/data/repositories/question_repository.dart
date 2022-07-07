@@ -18,9 +18,12 @@ class QuestionRepository {
   Future<List<Question>?> getFilteredQuestions() async {
     QuestionOfTheDay listQuestionOfTheDay = await _questionFireBase.getQuestions();
     return listQuestionOfTheDay.results;
+    /*return <Question>[
+      Question( "ekrhfekhf", <String>["a", "b", "c"], <String> ["x", "y", "z"] ),
+    ];*/
   }
 
-  Future<List<Question>> getQuestions(String id) async{
+  Future<List<Question>> getQuestions() async{
     List<Question>? list = await getFilteredQuestions();
     QuestionOfTheDay questionOfTheDay = QuestionOfTheDay(results: list, date: _getdate());
 
@@ -41,7 +44,7 @@ class QuestionRepository {
   }
 
   Future<void> deleteQuestions() async {
-    String id = _questionFireBase.getId();
+    String id = await _questionFireBase.getFirstId();
     return _questionFireBase.deleteQuestions(id);
   }
 

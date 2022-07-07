@@ -11,7 +11,7 @@ class SignInCubit extends Cubit<SignInState> {
 
   SignInCubit({required this.authRepository, required this.userRepository}) : super(const Loading());
 
-  Future<void> registerUser(String email, String password, TriviaUser user) async {
+  Future<void> loginUser(String email, String password, TriviaUser user) async {
     emit(const Loading());
     User? userFromFirebase = await authRepository.signIn(email: email, password: password);
     if(userFromFirebase != null) {

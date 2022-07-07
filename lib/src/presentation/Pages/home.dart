@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:quizz_game/src/presentation/Pages/game/game.dart';
 import 'package:quizz_game/src/presentation/Widgets/carte_horizontale.dart';
 
 import '../../globalVariables.dart';
@@ -125,6 +126,7 @@ class HomeState extends State<Home> {
                           minWidth: double.infinity,
                           height:60,
                           onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const GamePage()));
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(

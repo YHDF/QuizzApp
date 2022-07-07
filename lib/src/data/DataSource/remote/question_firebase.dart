@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:quizz_game/src/data/entities/question.dart';
 import 'package:quizz_game/src/data/entities/question_of_the_day.dart';
 
 import '../../entities/question_of_the_day.dart';
@@ -34,8 +35,9 @@ class QuestionFireBase{
     return document.data()!;
   }
 
-  String getId() {
-    return _questionRef.id;
+  Future<String> getFirstId() async {
+    QuerySnapshot<QuestionOfTheDay> questions = await _questionRef.get();
+    return questions.docs.first.id;
   }
 
   Future<void> deleteQuestions(String id) async {

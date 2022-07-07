@@ -1,14 +1,12 @@
 class Question{
 
-  String? _question;
-  List<String>? _reponseIncorrectes;
-  List<String>? _reponsesCorrectes;
+   String? _question;
+   List<String>? _reponseIncorrectes;
+   List<String>? _reponsesCorrectes;
 
-  Question({
-    String? question,
-    List<String>? reponseIncorrectes,
-    List<String>? reponsesCorrectes,
-  });
+  Question(
+this._question, this._reponseIncorrectes, this._reponsesCorrectes,
+  ) ;
 
   Question.fromJson(dynamic json) {
     _question = json['question'];
