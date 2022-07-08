@@ -77,6 +77,7 @@ class CarteVerticaleState extends State<CarteVerticale> {
                     Text(
                       "Jean Mouloud",
                       style: TextStyle(
+                        fontFamily: 'Roboto',
                         color: Colors.blueAccent,
                         fontWeight: FontWeight.w400,
                         fontSize: 15,
@@ -84,7 +85,7 @@ class CarteVerticaleState extends State<CarteVerticale> {
 
                       ),
                     ),
-                    Divider(height: 10, color: Colors.transparent,),
+                    Divider(height: 100, color: Colors.transparent,),
                     Text(
                       "0.5/10",
                       style: TextStyle(

@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,10 +25,9 @@ class _GamePagePageState extends State<GamePage> {
   List<Question> questions = <Question>[];
 
   void onPressed() {
-    print("dowered");
     setState(() {
       questions.removeAt(0);
-      print(questions.length);
+
     });
   }
 
@@ -68,7 +68,7 @@ class _GamePagePageState extends State<GamePage> {
             listener: (context, state) {
               if (state is Loaded) {
                 setState(() {
-                  questions = state.questions;
+                  questions = List.of(state.questions);
                 });
               }
             },
@@ -78,24 +78,22 @@ class _GamePagePageState extends State<GamePage> {
                 height: double.infinity,
                 child: Column(
                   children: [
-                    AbsorbPointer(
-                      child: Container(
-                        width: dev_width,
-                        color: Colors.white,
-                        child: SwipingCardDeck(
-                          onDeckEmpty: () => debugPrint("Card deck empty"),
-                          onLeftSwipe: (Card card) =>
-                              debugPrint("Swiped left!"),
-                          onRightSwipe: (Card card) =>
-                              debugPrint("Swiped right!"),
-                          swipeThreshold: MediaQuery.of(context).size.width / 4,
-                          minimumVelocity: 1000,
-                          cardWidth: 200,
-                          rotationFactor: 0.8 / 3.14,
-                          swipeAnimationDuration:
-                              const Duration(milliseconds: 500),
-                          cardDeck: createCards(context, state),
-                        ),
+                    Container(
+                      width: dev_width,
+                      color: Colors.white,
+                      child: SwipingCardDeck(
+                        onDeckEmpty: () => debugPrint("Card deck empty"),
+                        onLeftSwipe: (Card card) =>
+                            debugPrint("Swiped left!"),
+                        onRightSwipe: (Card card) =>
+                            debugPrint("Swiped right!"),
+                        swipeThreshold: MediaQuery.of(context).size.width / 4,
+                        minimumVelocity: 1000,
+                        cardWidth: 200,
+                        rotationFactor: 0.8 / 3.14,
+                        swipeAnimationDuration:
+                            const Duration(milliseconds: 500),
+                        cardDeck: createCards(context, state),
                       ),
                     ),
                   ],
@@ -154,10 +152,9 @@ class _GamePagePageState extends State<GamePage> {
       BuildContext context, GameState state, int questionnumber) {
     if (state is Loaded) {
       var answers = questions[questionnumber].incorrectAnswers;
-      answers!.add(questions[questionnumber].correctAnswer);
 
       List<Widget> answersWidgets =
-          List<Widget>.generate(answers.length, (index) {
+          List<Widget>.generate(answers!.length, (index) {
         return Text(
           (index + 1).toString() + ": " + answers[index],
           style: const TextStyle(color: Colors.white),
@@ -180,21 +177,19 @@ class _GamePagePageState extends State<GamePage> {
 
       List<Widget> answersWidgets =
           List<Widget>.generate(answers!.length, (index) {
-        return IgnorePointer(
-          child: MaterialButton(
-            onPressed: onPressed,
-            child: Container(
-              width: dev_width / 5,
-              height: dev_height / 20,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Center(
-                child: Text(
-                  (index + 1).toString(),
-                  style: const TextStyle(color: Colors.blueAccent),
-                ),
+        return MaterialButton(
+          onPressed: onPressed,
+          child: Container(
+            width: dev_width / 5,
+            height: dev_height / 20,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Text(
+                (index + 1).toString(),
+                style: const TextStyle(color: Colors.blueAccent),
               ),
             ),
           ),
