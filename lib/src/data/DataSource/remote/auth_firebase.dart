@@ -23,6 +23,11 @@ required String email, required String password}) async{
   bool isSignIn(){
     return _fireBaseAuth.currentUser != null;
   }
+
+  Future<void> signOut() async {
+    await _fireBaseAuth.signOut();
+  }
+
   String? getUser(){
     return (_fireBaseAuth.currentUser)?.email;
   }

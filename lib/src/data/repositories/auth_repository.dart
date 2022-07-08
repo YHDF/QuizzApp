@@ -22,6 +22,14 @@ class AuthRepository {
     return userCredential?.user;
   }
 
+  bool isSignedIn() {
+    return _authFirebase.isSignIn();
+  }
+
+  void signOut() {
+    _authFirebase.signOut();
+  }
+
   String? getUser(){
     return _authFirebase.getUser();
   }

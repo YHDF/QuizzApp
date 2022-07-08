@@ -22,7 +22,7 @@ class _UserProfileState extends State<UserProfile> {
   final UserRepository? userRepository = UserRepository.getInstance();
   final AuthRepository? authRepository = AuthRepository.getInstance();
 
-
+int v = 0;
 
   TriviaUser? user = TriviaUser();
 
@@ -30,6 +30,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     super.initState();
     imagePicker = ImagePicker();
+    checkUser();
   }
 
   void checkUser() async{
@@ -49,7 +50,6 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-    checkUser();
     var dev_width = MediaQuery.of(context).size.width;
     var dev_height = MediaQuery.of(context).size.height;
     return Stack(
@@ -145,12 +145,12 @@ class _UserProfileState extends State<UserProfile> {
                   height: 10,
                   color: Colors.transparent,
                 ),
-                CarteProfile("text1", IconData(0xe328, fontFamily: 'MaterialIcons')),
+                CarteProfile("text1", IconData(0xe328, fontFamily: 'MaterialIcons'), "settings"),
                 const Divider(
                   height: 10,
                   color: Colors.transparent,
                 ),
-                CarteProfile("text", IconData(0xe328, fontFamily: 'MaterialIcons')),
+                CarteProfile("Disconnect", IconData(0xe3b3, fontFamily: 'MaterialIcons'), "logout"),
               ],
             ),
           ),
