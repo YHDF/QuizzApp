@@ -1,27 +1,55 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:quizz_game/src/data/repositories/auth_repository.dart';
+import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/presentation/Widgets/background_clipper.dart';
 import 'package:quizz_game/src/presentation/Widgets/carte_profile.dart';
 import '../../data/entities/user.dart';
-
+enum ImageSourceType { gallery, camera }
 class UserProfile extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
+  var _image;
+  var imagePicker;
+  var type;
 
-  final TriviaUser user = TriviaUser(
-    id: 1,
-    pseudo: 'Dummy name',
-  );
+
+  final UserRepository? userRepository = UserRepository.getInstance();
+  final AuthRepository? authRepository = AuthRepository.getInstance();
+
+
+
+  TriviaUser? user = TriviaUser();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
+    imagePicker = ImagePicker();
+  }
+
+  void checkUser() async{
+      String? email =  authRepository?.getUser();
+      await userRepository?.getUserByEmail(email).then((value) => setState((){
+        user = value;
+      }));
+  }
+  
+  Widget image(){
+    if(_image == null){
+      return Image.network("https://picsum.photos/200/300",fit: BoxFit.fill,);
+    }else{
+      return Image.file(_image,fit: BoxFit.fill,);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    checkUser();
     var dev_width = MediaQuery.of(context).size.width;
     var dev_height = MediaQuery.of(context).size.height;
     return Stack(
@@ -159,16 +187,29 @@ class _UserProfileState extends State<UserProfile> {
                           borderRadius: BorderRadius.circular(dev_width),
                           child: Stack(
                             children: <Widget>[
-                              Container(
-                                width: dev_height > dev_width
-                                    ? dev_width / 4
-                                    : dev_height / 4,
-                                height: dev_height > dev_width
-                                    ? dev_width / 4
-                                    : dev_height / 4,
-                                child: Image.network(
-                                  "https://picsum.photos/200/300",
-                                  fit: BoxFit.fill,
+                              GestureDetector(
+                                onTap: () async {
+                                  var source = type == ImageSourceType.camera
+                                      ? ImageSource.camera
+                                      : ImageSource.gallery;
+                                  XFile image = await imagePicker.pickImage(
+                                      source: source, imageQuality: 50, preferredCameraDevice: CameraDevice.front);
+                                  await userRepository?.uploadAvatar(image, null).then((value){
+                                    setState(() {
+                                      _image = File(image.path);
+                                    });
+                                  });
+
+
+                                },
+                                child: Container(
+                                  width: dev_height > dev_width
+                                      ? dev_width / 4
+                                      : dev_height / 4,
+                                  height: dev_height > dev_width
+                                      ? dev_width / 4
+                                      : dev_height / 4,
+                                  child: image(),
                                 ),
                               ),
                               Container(
@@ -195,7 +236,7 @@ class _UserProfileState extends State<UserProfile> {
                             width: 2 * dev_width / 3,
                             child: Center(
                               child: Text(
-                                user.pseudo ?? "",
+                                user?.pseudo ?? "",
                                 style: const TextStyle(
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w400,
@@ -206,10 +247,10 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           SizedBox(
                             width: 2 * dev_width / 3,
-                            child: const Center(
+                            child:  Center(
                               child: Text(
-                                "user.email@test.com",
-                                style: TextStyle(
+                                user?.email ?? "",
+                                style: const TextStyle(
                                     fontFamily: 'Roboto',
                                     fontWeight: FontWeight.w200,
                                     fontSize: 15,

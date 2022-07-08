@@ -21,4 +21,10 @@ class AuthRepository {
     UserCredential? userCredential = await _authFirebase.signUp(email: email, password: password);
     return userCredential?.user;
   }
+
+  String? getUser(){
+    return _authFirebase.getUser();
+  }
+
+
 }

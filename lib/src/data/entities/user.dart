@@ -2,10 +2,12 @@ class TriviaUser {
   TriviaUser({
     int? id,
     int? score,
+    String? email,
     String? pseudo,
     String? avatar,
     int? games,
   }) {
+    _email = email;
     _id = id;
     _score = score;
     _pseudo = pseudo;
@@ -15,6 +17,7 @@ class TriviaUser {
 
   TriviaUser.fromJson(dynamic json) {
     _id = json['id'];
+    _email = json['email'];
     _score = json['score'];
     _pseudo = json['pseudo'];
     _avatar = json['avatar'];
@@ -22,6 +25,7 @@ class TriviaUser {
   }
 
   int? _id;
+  String? _email;
   int? _score;
   String? _pseudo;
   String? _avatar;
@@ -32,6 +36,8 @@ class TriviaUser {
   int? get score => _score;
 
   String? get pseudo => _pseudo;
+
+  String? get email => _email;
 
   String? get avatar => _avatar;
 
@@ -44,6 +50,7 @@ class TriviaUser {
     map['pseudo'] = _pseudo;
     map['avatar'] = _avatar;
     map['games'] = _games;
+    map['email'] = _email;
     return map;
   }
 }

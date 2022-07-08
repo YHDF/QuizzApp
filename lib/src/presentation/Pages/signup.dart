@@ -195,7 +195,7 @@ class _SignupPageState extends State<SignUp> {
                                   height: 60,
                                   onPressed: () {
                                     if (_formKey.currentState != null && _formKey.currentState!.validate()) {
-                                      TriviaUser user = TriviaUser(score: 0, pseudo: _controllerPseudo.text, avatar: "", games: 0);
+                                      TriviaUser user = TriviaUser(score: 0, pseudo: _controllerPseudo.text, avatar: "", games: 0, email: _controllerEmail.text);
                                       cubit?.registerUser(_controllerEmail.text, _controllerPassword.text, user);
                                     }
                                   },
