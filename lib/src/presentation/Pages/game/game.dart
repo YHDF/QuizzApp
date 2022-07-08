@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:quizz_game/src/data/entities/question.dart';
 import 'package:quizz_game/src/presentation/Pages/game/bloc/game_cubit.dart';
 import 'package:quizz_game/src/presentation/Pages/game/bloc/game_state.dart';
+import 'package:swiping_card_deck/swiping_card_deck.dart';
 
 import '../../../data/repositories/question_repository.dart';
 
@@ -19,11 +21,40 @@ class _GamePagePageState extends State<GamePage> {
 
   String? text;
 
+  List<Question> questions = <Question>[];
+
+  void onPressed() {
+    print("dowered");
+    setState(() {
+      questions.removeAt(0);
+      print(questions.length);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    var dev_width = MediaQuery.of(context).size.width;
+    var dev_height = MediaQuery.of(context).size.height;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50.0),
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                size: 20,
+                color: Colors.black,
+              )),
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+        ),
+      ),
       body: RepositoryProvider(
         create: (context) => QuestionRepository.getInstance(),
         child: BlocProvider(
@@ -37,51 +68,142 @@ class _GamePagePageState extends State<GamePage> {
             listener: (context, state) {
               if (state is Loaded) {
                 setState(() {
-                  text = state.questions.first.question;
+                  questions = state.questions;
                 });
-
               }
             },
             builder: (context, state) {
-                return Column(
+              return SizedBox(
+                width: dev_width,
+                height: double.infinity,
+                child: Column(
                   children: [
-                    Text( text  ?? "Not found")
+                    AbsorbPointer(
+                      child: Container(
+                        width: dev_width,
+                        color: Colors.white,
+                        child: SwipingCardDeck(
+                          onDeckEmpty: () => debugPrint("Card deck empty"),
+                          onLeftSwipe: (Card card) =>
+                              debugPrint("Swiped left!"),
+                          onRightSwipe: (Card card) =>
+                              debugPrint("Swiped right!"),
+                          swipeThreshold: MediaQuery.of(context).size.width / 4,
+                          minimumVelocity: 1000,
+                          cardWidth: 200,
+                          rotationFactor: 0.8 / 3.14,
+                          swipeAnimationDuration:
+                              const Duration(milliseconds: 500),
+                          cardDeck: createCards(context, state),
+                        ),
+                      ),
+                    ),
                   ],
-                );
+                ),
+              );
             },
           ),
         ),
       ),
     );
   }
-}
 
-Widget makeInput({label, obsureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        label,
-        style: const TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      const SizedBox(height: 5),
-      TextField(
-        obscureText: obsureText,
-        decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.grey,
+  List<Card> createCards(BuildContext context, GameState state) {
+    var dev_width = MediaQuery.of(context).size.width;
+    var dev_height = MediaQuery.of(context).size.height;
+
+    if (state is Loaded) {
+      final cards = List<Card>.generate(questions.length, (int index) {
+        return Card(
+          color: Colors.blueAccent,
+          child: SizedBox(
+            width: 0.9 * dev_width,
+            height: 3 * dev_height / 4,
+            child: Column(
+              children: [
+                SizedBox(
+                  child: Center(
+                      child: Text(
+                    questions[index].question ?? "No Question Fuck OFF",
+                    style: const TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center,
+                  )),
+                ),
+                SizedBox(
+                  child: Column(children: [
+                    Column(
+                      children: generateAnswers(context, state, index),
+                    ),
+                    Column(
+                      children: generateAnswerButtons(context, state, index),
+                    ),
+                  ]),
+                )
+              ],
             ),
           ),
-          border:
-              OutlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
-        ),
-      ),
-      const SizedBox(
-        height: 30,
-      )
-    ],
-  );
+        );
+      });
+      return cards;
+    } else {
+      return <Card>[];
+    }
+  }
+
+  List<Widget> generateAnswers(
+      BuildContext context, GameState state, int questionnumber) {
+    if (state is Loaded) {
+      var answers = questions[questionnumber].incorrectAnswers;
+      answers!.add(questions[questionnumber].correctAnswer);
+
+      List<Widget> answersWidgets =
+          List<Widget>.generate(answers.length, (index) {
+        return Text(
+          (index + 1).toString() + ": " + answers[index],
+          style: const TextStyle(color: Colors.white),
+        );
+      });
+
+      return answersWidgets;
+    } else {
+      return <Card>[];
+    }
+  }
+
+  List<Widget> generateAnswerButtons(
+      BuildContext context, GameState state, int questionnumber) {
+    var dev_width = MediaQuery.of(context).size.width;
+    var dev_height = MediaQuery.of(context).size.height;
+
+    if (state is Loaded) {
+      var answers = questions[questionnumber].incorrectAnswers;
+
+      List<Widget> answersWidgets =
+          List<Widget>.generate(answers!.length, (index) {
+        return IgnorePointer(
+          child: MaterialButton(
+            onPressed: onPressed,
+            child: Container(
+              width: dev_width / 5,
+              height: dev_height / 20,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Text(
+                  (index + 1).toString(),
+                  style: const TextStyle(color: Colors.blueAccent),
+                ),
+              ),
+            ),
+          ),
+        );
+      });
+
+      return answersWidgets;
+    } else {
+      return <Card>[];
+    }
+  }
 }
