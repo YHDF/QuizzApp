@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -60,6 +60,10 @@ class UserFireBase{
     return _userRef.where('email', isEqualTo: email).get();
   }
 
+  String? getUserUID() {
+    return (_fireBaseAuth.currentUser)?.uid;
+  }
+
 
   Future<TriviaUser?> getUserById(String id) async{
     var document =  await _userRef.doc(id).get();
@@ -85,5 +89,13 @@ class UserFireBase{
     return Future.value(uploadTask);
   }
 
+  Future<String?> fetchImg() async {
+    var downloadURL = await _firebaseStorage
+        .ref()
+        .child("avatars").child(getUserUID()! + '.jpg')
+        .getDownloadURL();
+
+    return downloadURL.toString();
+  }
 }
 

@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:quizz_game/src/data/DataSource/remote/auth_firebase.dart';
+import 'package:quizz_game/src/data/DataSource/remote/user_firebase.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/presentation/Widgets/background_clipper.dart';
@@ -21,6 +23,7 @@ class _UserProfileState extends State<UserProfile> {
 
   final UserRepository? userRepository = UserRepository.getInstance();
   final AuthRepository? authRepository = AuthRepository.getInstance();
+  final UserFireBase? userFireBase = UserFireBase.getInstance();
 
 int v = 0;
 
@@ -31,6 +34,7 @@ int v = 0;
     super.initState();
     imagePicker = ImagePicker();
     checkUser();
+    image();
   }
 
   void checkUser() async{
@@ -39,13 +43,12 @@ int v = 0;
         user = value;
       }));
   }
-  
-  Widget image(){
-    if(_image == null){
-      return Image.network("https://picsum.photos/200/300",fit: BoxFit.fill,);
-    }else{
-      return Image.file(_image,fit: BoxFit.fill,);
-    }
+
+  void image() async {
+     _image = "https://picsum.photos/200/300";
+     await userRepository?.fetchAvatar().then((value) => setState(() {
+       _image = value;
+     }));
   }
 
   @override
@@ -209,7 +212,7 @@ int v = 0;
                                   height: dev_height > dev_width
                                       ? dev_width / 4
                                       : dev_height / 4,
-                                  child: image(),
+                                  child: Image.network(_image, fit: BoxFit.fill),
                                 ),
                               ),
                               Container(

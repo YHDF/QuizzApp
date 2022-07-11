@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quizz_game/src/presentation/Pages/home.dart';
 import 'package:quizz_game/src/presentation/Pages/initial_page.dart';
-import 'package:quizz_game/src/presentation/Pages/signup.dart';
-import 'package:quizz_game/src/presentation/Pages/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
-import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
 import '../firebase_options.dart';
 
 void main() async{

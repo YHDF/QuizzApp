@@ -29,6 +29,11 @@ class UserRepository {
     return;
   }
 
+  Future<String?> fetchAvatar() async {
+    String? avatarURL = await _userFireBase.fetchImg();
+    return avatarURL;
+  }
+
   Future<TriviaUser> getUserByEmail(String? email) async{
     QuerySnapshot<TriviaUser> querySnapshot = await _userFireBase.searchUsersWithEmail(email!);
     return querySnapshot.docs.first.data();

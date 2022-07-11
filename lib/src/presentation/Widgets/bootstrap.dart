@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:quizz_game/src/presentation/Pages/classement.dart';
 import 'package:quizz_game/src/presentation/Pages/home.dart';
@@ -18,7 +17,6 @@ class BootstrapState extends State<Bootstrap> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
