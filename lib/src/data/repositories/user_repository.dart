@@ -24,9 +24,9 @@ class UserRepository {
     return _userFireBase.insertUser(user);
   }
 
-  Future<void> uploadAvatar(XFile file, String? userId) async{
-    await _userFireBase.uploadFile(file, userId);
-    return;
+  Future<String?> uploadAvatar(XFile file, String? userId) async{
+    String? downloadURL = await _userFireBase.uploadFile(file, userId);
+    return downloadURL;
   }
 
   Future<String?> fetchAvatar() async {

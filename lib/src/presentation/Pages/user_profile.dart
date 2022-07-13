@@ -99,7 +99,7 @@ int v = 0;
                                         color: Colors.blueAccent),
                                   ),
                                   Text(
-                                    "games Played",
+                                    "Games Played",
                                     style: TextStyle(
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w300,
@@ -148,7 +148,7 @@ int v = 0;
                   height: 10,
                   color: Colors.transparent,
                 ),
-                CarteProfile("text1", IconData(0xe328, fontFamily: 'MaterialIcons'), "settings"),
+                CarteProfile("Settings", IconData(0xe328, fontFamily: 'MaterialIcons'), "settings"),
                 const Divider(
                   height: 10,
                   color: Colors.transparent,
@@ -198,12 +198,11 @@ int v = 0;
                                   XFile image = await imagePicker.pickImage(
                                       source: source, imageQuality: 50, preferredCameraDevice: CameraDevice.front);
                                   await userRepository?.uploadAvatar(image, null).then((value){
+                                    _image = value;
                                     setState(() {
-                                      _image = File(image.path);
+                                      // _image = File(image.path);
                                     });
                                   });
-
-
                                 },
                                 child: Container(
                                   width: dev_height > dev_width

@@ -73,7 +73,7 @@ class UserFireBase{
   Future<void> deleteUser(String id) async {
     return _userRef.doc(id).delete();
   }
-  Future<UploadTask?> uploadFile(XFile file, String? userId) async {
+  Future<String?> uploadFile(XFile file, String? userId) async {
     UploadTask uploadTask;
     final uid = _fireBaseAuth.currentUser?.uid;
 
@@ -86,7 +86,7 @@ class UserFireBase{
     } else {
       uploadTask = ref.putFile(io.File(file.path), metadata);
     }
-    return Future.value(uploadTask);
+    return Future.value(this.fetchImg());
   }
 
   Future<String?> fetchImg() async {
