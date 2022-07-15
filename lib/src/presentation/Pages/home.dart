@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:quizz_game/src/presentation/Pages/game/game.dart';
 import 'package:quizz_game/src/presentation/Widgets/carte_horizontale.dart';
 
+import '../../data/repositories/auth_repository.dart';
+import '../../data/repositories/user_repository.dart';
 import '../../globalVariables.dart';
 
 class Home extends StatefulWidget {
@@ -11,10 +13,23 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+
+  final UserRepository? userRepository = UserRepository.getInstance();
+
+  final AuthRepository? authRepository = AuthRepository.getInstance();
+
+  bool? playedToday = false;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    checkUser();
+  }
+
+  void checkUser() async{
+    String? email =  authRepository?.getUser();
+    playedToday = await userRepository?.checkGameDate(email!);
   }
 
   @override
@@ -126,7 +141,11 @@ class HomeState extends State<Home> {
                           minWidth: double.infinity,
                           height:60,
                           onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const GamePage()));
+                            setState((){
+                              if(!playedToday!){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => const GamePage()));
+                              }
+                            });
                           },
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -144,6 +163,14 @@ class HomeState extends State<Home> {
                           ),
                         ),
                       ),
+                      Visibility(
+                        visible: playedToday!,
+                        child: Container(
+                          child:
+                          Center(child: Text("You already played today. Wait for tomorrow tp play again!"),
+                          )
+                        ),
+                      )
                     ],
                   ),
                 )

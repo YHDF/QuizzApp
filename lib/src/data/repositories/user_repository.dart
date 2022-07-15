@@ -51,11 +51,26 @@ class UserRepository {
     return querySnapshot.docs.first.data();
   }
 
-  Future<void> updateScore(String email, String score) async{
+  Future<void> updateScoreAndGameDate(String email, String score) async{
     String docId = encryptEmail(email);
     TriviaUser? triviaUser = await _userFireBase.getUserById(docId);
+    triviaUser?.setGameDate = _getdate();
     triviaUser?.setScore = int.parse(score);
     _userFireBase.updateUser(triviaUser!, encryptEmail(email));
+  }
+
+  String _getdate() {
+    DateTime today = DateTime.now();
+    return '${today.day}/${today.month}/${today.year}';
+  }
+
+  Future<bool> checkGameDate(String email) async{
+    String docId = encryptEmail(email);
+    TriviaUser? triviaUser = await _userFireBase.getUserById(docId);
+    if(triviaUser?.gameDate == _getdate()){
+      return true;
+    }
+    return false;
   }
 }
 

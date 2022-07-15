@@ -72,7 +72,8 @@ class _GamePagePageState extends State<GamePage> {
       if(questions.isEmpty){
         //await userRepository?.updateUser();
         String? email = authRepository?.getUser();
-        userRepository?.updateScore(email!, scores.toString());
+        userRepository?.updateScoreAndGameDate(email!, scores.toString());
+
 
         Navigator.push(
             context,
