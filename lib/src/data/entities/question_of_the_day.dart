@@ -3,10 +3,10 @@ import 'package:quizz_game/src/data/entities/question.dart';
 
 class QuestionOfTheDay{
   int? responseCode;
-  String date = '';
+  String? date;
   List<Question>? results;
 
-  QuestionOfTheDay({this.responseCode, this.results, required this.date});
+  QuestionOfTheDay({this.responseCode, this.results, this.date});
 
 
   QuestionOfTheDay.fromJson(Map<String, dynamic> json){
@@ -17,6 +17,7 @@ class QuestionOfTheDay{
         results!.add(Question.fromJson(v));
       });
     }
+    date = json['date'];
   }
 
 
@@ -26,6 +27,7 @@ class QuestionOfTheDay{
     if(results != null){
       data['results'] = results!.map((e) => e.toJson()).toList();
     }
+    data['date'] = date;
     return data;
   }
 

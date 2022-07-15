@@ -23,6 +23,7 @@ class _UserProfileState extends State<UserProfile> {
   final AuthRepository? authRepository = AuthRepository.getInstance();
   final UserFireBase? userFireBase = UserFireBase.getInstance();
 
+
   TriviaUser? user = TriviaUser();
 
   @override
@@ -33,18 +34,18 @@ class _UserProfileState extends State<UserProfile> {
     image();
   }
 
-  void checkUser() async {
-    String? email = authRepository?.getUser();
-    await userRepository?.getUserByEmail(email).then((value) => setState(() {
-          user = value;
-        }));
+  void checkUser() async{
+    String? email =  authRepository?.getUser();
+    await userRepository?.getUserByEmail(email).then((value) => setState((){
+      user = value;
+    }));
   }
 
   void image() async {
     _image = "https://picsum.photos/200/300";
     await userRepository?.fetchAvatar().then((value) => setState(() {
-          _image = value;
-        }));
+      _image = value;
+    }));
   }
 
   @override
@@ -73,7 +74,7 @@ class _UserProfileState extends State<UserProfile> {
                         height: 2 * dev_width / 3,
                         decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.circular(dev_width * 100),
+                            BorderRadius.circular(dev_width * 100),
                             color: Colors.white),
                         child: Column(
                           children: [
@@ -191,7 +192,7 @@ class _UserProfileState extends State<UserProfile> {
                             : dev_height / 4,
                         decoration: BoxDecoration(
                           border:
-                              Border.all(color: Colors.blueAccent, width: 1.0),
+                          Border.all(color: Colors.blueAccent, width: 1.0),
                           borderRadius: BorderRadius.circular(dev_width / 3),
                         ),
                         child: Stack(

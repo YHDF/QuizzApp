@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:quizz_game/src/data/entities/question.dart';
 import 'package:quizz_game/src/data/entities/question_of_the_day.dart';
 
@@ -26,18 +27,20 @@ class QuestionFireBase{
   }
 
   Future<void> insertQuestions(QuestionOfTheDay questionOfTheDay) async{
+    print(_instance);
     await _questionRef.add(questionOfTheDay);
     return;
   }
 
-  Future<QuestionOfTheDay> getQuestions() async{
-    var document =  await _questionRef.doc().get();
-    return document.data()!;
+  Future<QuestionOfTheDay?> getQuestions() async{
+    QuerySnapshot<QuestionOfTheDay?> querySnapshot =  await _questionRef.get();
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+    return !allData.isEmpty ? allData[allData.length-1 ] : null;
   }
 
   Future<String> getFirstId() async {
     QuerySnapshot<QuestionOfTheDay> questions = await _questionRef.get();
-    return questions.docs.first.id;
+    return !questions.docs.isEmpty ?  questions.docs.first.id : "";
   }
 
   Future<void> deleteQuestions(String id) async {
