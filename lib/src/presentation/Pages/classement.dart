@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:quizz_game/src/presentation/Widgets/carte_verticale.dart';
+
+import '../../data/entities/user.dart';
+import '../../globalVariables.dart' as globals;
+
 
 class Classement extends StatefulWidget {
   @override
@@ -7,15 +12,18 @@ class Classement extends StatefulWidget {
 }
 
 class ClassementState extends State<Classement> {
-  var cartesClassement = List<CarteVerticale>.generate(10, (index) {
-    return new CarteVerticale();
-  });
+
+
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +52,9 @@ class ClassementState extends State<Classement> {
                       color: Colors.transparent,
 
                     ),
-                itemCount: 10,
+                itemCount: globals.GlobalVariables.usersList?.length ?? 0,
                 itemBuilder: (BuildContext context, int index) {
-                  return CarteVerticale();
+                  return CarteVerticale(globals.GlobalVariables.usersList![index].data().pseudo!, globals.GlobalVariables.usersList![index].data().score!);
                 }),
           ),
         ],

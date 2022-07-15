@@ -72,5 +72,11 @@ class UserRepository {
     }
     return false;
   }
+
+  Future<List<QueryDocumentSnapshot<TriviaUser>>> getAllUser() async{
+    QuerySnapshot<TriviaUser> triviaUsers = await _userFireBase.getAll();
+    return triviaUsers.docs;
+  }
+
 }
 

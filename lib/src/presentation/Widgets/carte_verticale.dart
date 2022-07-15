@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class CarteVerticale extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => CarteVerticaleState();
-}
 
-class CarteVerticaleState extends State<CarteVerticale> {
+class CarteVerticale extends StatelessWidget {
+
+  CarteVerticale(this.pseudo, this.score);
+
+   final String pseudo;
+   final int score;
+
   @override
   Widget build(BuildContext context) {
     var dev_width = MediaQuery.of(context).size.width;
@@ -72,10 +74,9 @@ class CarteVerticaleState extends State<CarteVerticale> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-
+                  children:  [
                     Text(
-                      "Jean Mouloud",
+                      "Pseudo : ",
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.blueAccent,
@@ -85,9 +86,31 @@ class CarteVerticaleState extends State<CarteVerticale> {
 
                       ),
                     ),
-                    Divider(height: 100, color: Colors.transparent,),
                     Text(
-                      "0.5/10",
+                      pseudo,
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        overflow : TextOverflow.ellipsis,
+
+                      ),
+                    ),
+                    VerticalDivider(width: dev_width / 10, color: Colors.transparent,),
+                    Text(
+                      "Score : ",
+                      style: TextStyle(
+                        fontFamily: 'Roboto',
+                        color: Colors.blueAccent,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 15,
+                        overflow : TextOverflow.ellipsis,
+
+                      ),
+                    ),
+                    Text(
+                      score.toString(),
                       style: TextStyle(
                         color: Colors.blueAccent,
                         fontWeight: FontWeight.w400,

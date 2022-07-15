@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizz_game/src/presentation/Pages/initial_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:quizz_game/src/presentation/Pages/linear_animation.dart';
 import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import '../firebase_options.dart';
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     if(authRepository!.isSignedIn()) {
-      return Bootstrap();
+      return LoadingAnimation();
     } else {
       return InitialPage();
     }
