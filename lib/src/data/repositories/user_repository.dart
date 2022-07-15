@@ -1,12 +1,17 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quizz_game/src/data/DataSource/remote/user_firebase.dart';
 import 'package:quizz_game/src/data/entities/user.dart';
+import 'package:crypto/crypto.dart';
 
 class UserRepository {
 
   static UserRepository? _instance;
   static final UserFireBase _userFireBase = UserFireBase.getInstance();
+
 
   static UserRepository? getInstance(){
     _instance ??= UserRepository._();
@@ -21,7 +26,14 @@ class UserRepository {
   }
 
   Future<void> createUser(TriviaUser user) async{
-    return _userFireBase.insertUser(user);
+    String digestedString =  encryptEmail(user.email!);
+    return _userFireBase.insertUser(user, digestedString.toString());
+  }
+
+  String encryptEmail(String email){
+    var bytes1 = utf8.encode(email);         // data being hashed
+    var digest1 = sha256.convert(bytes1);
+    return digest1.toString();
   }
 
   Future<String?> uploadAvatar(XFile file, String? userId) async{
@@ -37,6 +49,13 @@ class UserRepository {
   Future<TriviaUser> getUserByEmail(String? email) async{
     QuerySnapshot<TriviaUser> querySnapshot = await _userFireBase.searchUsersWithEmail(email!);
     return querySnapshot.docs.first.data();
+  }
+
+  Future<void> updateScore(String email, String score) async{
+    String docId = encryptEmail(email);
+    TriviaUser? triviaUser = await _userFireBase.getUserById(docId);
+    triviaUser?.setScore = int.parse(score);
+    _userFireBase.updateUser(triviaUser!, encryptEmail(email));
   }
 }
 

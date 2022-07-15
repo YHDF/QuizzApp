@@ -43,6 +43,33 @@ class TriviaUser {
 
   int? get games => _games;
 
+
+  set setId(int id) {
+    _id = id;
+  }
+
+  set setEmail(String email) {
+    _email = email;
+  }
+
+  set setPseudo(String pseudo) {
+    _pseudo = pseudo;
+  }
+
+  set setScore(int score) {
+    _score = score;
+  }
+
+  set setAvatar(String avatar) {
+    _avatar = avatar;
+  }
+
+  set setGames(int games) {
+    _games = games;
+  }
+
+
+
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = _id;

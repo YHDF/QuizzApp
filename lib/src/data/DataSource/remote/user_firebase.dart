@@ -31,8 +31,8 @@ class UserFireBase{
     return _instance!;
   }
 
-  Future<void> insertUser(TriviaUser user) async{
-    await _userRef.add(user);
+  Future<void> insertUser(TriviaUser user, String docId) async{
+    await _userRef.doc(docId).set(user);
     return;
   }
 
@@ -49,8 +49,6 @@ class UserFireBase{
     test.docs.forEach((element) { });
     return _userRef.get();
   }
-
-
 
   Future<QuerySnapshot<TriviaUser>> searchUsersWithpseudo(String pseudo) async{
     return _userRef.where('pseudo', isEqualTo: pseudo).get();
