@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
-import 'package:quizz_game/src/main.dart';
+import 'package:quizz_game/src/presentation/Pages/edit_username.dart';
 import 'package:quizz_game/src/presentation/Pages/initial_page.dart';
-import 'package:quizz_game/src/presentation/Pages/signin.dart';
 
 
 
@@ -18,8 +16,11 @@ class CarteProfile extends StatelessWidget {
 
   void actionSelected(String? action, BuildContext context) {
     switch(action) {
-      case "settings" : {
-        print("settings clicked");
+      case "edit" : {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditUsernamePage()));
       }
       break;
       case "logout" : {

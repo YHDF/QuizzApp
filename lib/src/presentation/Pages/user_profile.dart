@@ -1,15 +1,14 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:quizz_game/src/data/DataSource/remote/auth_firebase.dart';
 import 'package:quizz_game/src/data/DataSource/remote/user_firebase.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/presentation/Widgets/background_clipper.dart';
 import 'package:quizz_game/src/presentation/Widgets/carte_profile.dart';
 import '../../data/entities/user.dart';
+
 enum ImageSourceType { gallery, camera }
+
 class UserProfile extends StatefulWidget {
   @override
   _UserProfileState createState() => _UserProfileState();
@@ -20,12 +19,9 @@ class _UserProfileState extends State<UserProfile> {
   var imagePicker;
   var type;
 
-
   final UserRepository? userRepository = UserRepository.getInstance();
   final AuthRepository? authRepository = AuthRepository.getInstance();
   final UserFireBase? userFireBase = UserFireBase.getInstance();
-
-int v = 0;
 
   TriviaUser? user = TriviaUser();
 
@@ -37,18 +33,18 @@ int v = 0;
     image();
   }
 
-  void checkUser() async{
-      String? email =  authRepository?.getUser();
-      await userRepository?.getUserByEmail(email).then((value) => setState((){
-        user = value;
-      }));
+  void checkUser() async {
+    String? email = authRepository?.getUser();
+    await userRepository?.getUserByEmail(email).then((value) => setState(() {
+          user = value;
+        }));
   }
 
   void image() async {
-     _image = "https://picsum.photos/200/300";
-     await userRepository?.fetchAvatar().then((value) => setState(() {
-       _image = value;
-     }));
+    _image = "https://picsum.photos/200/300";
+    await userRepository?.fetchAvatar().then((value) => setState(() {
+          _image = value;
+        }));
   }
 
   @override
@@ -85,13 +81,13 @@ int v = 0;
                               width: 2 * dev_width / 3,
                               height: dev_width / 3 - 25,
                               child: Column(
-                                children: const [
+                                children: [
                                   Divider(
                                     height: 30,
                                     color: Colors.transparent,
                                   ),
                                   Text(
-                                    "22",
+                                    (user?.games).toString(),
                                     style: TextStyle(
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w100,
@@ -120,9 +116,9 @@ int v = 0;
                               width: 2 * dev_width / 3,
                               height: dev_width / 3 - 25,
                               child: Column(
-                                children: const [
+                                children: [
                                   Text(
-                                    "9.8",
+                                    (user?.score).toString(),
                                     style: TextStyle(
                                         fontFamily: 'Roboto',
                                         fontWeight: FontWeight.w100,
@@ -148,12 +144,24 @@ int v = 0;
                   height: 10,
                   color: Colors.transparent,
                 ),
-                CarteProfile("Settings", IconData(0xe328, fontFamily: 'MaterialIcons'), "settings"),
+                CarteProfile(
+                    "Edit profile",
+                    IconData(0xe328, fontFamily: 'MaterialIcons'),
+                    "edit"),
+                /*const Divider(
+                  height: 10,
+                  color: Colors.transparent,
+                ),
+                CarteProfile(
+                    "Edit password",
+                    IconData(0xe328, fontFamily: 'MaterialIcons'),
+                    "editPassword"), */
                 const Divider(
                   height: 10,
                   color: Colors.transparent,
                 ),
-                CarteProfile("Disconnect", IconData(0xe3b3, fontFamily: 'MaterialIcons'), "logout"),
+                CarteProfile("Disconnect",
+                    IconData(0xe3b3, fontFamily: 'MaterialIcons'), "logout"),
               ],
             ),
           ),
@@ -186,44 +194,60 @@ int v = 0;
                               Border.all(color: Colors.blueAccent, width: 1.0),
                           borderRadius: BorderRadius.circular(dev_width / 3),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(dev_width),
-                          child: Stack(
-                            children: <Widget>[
-                              GestureDetector(
-                                onTap: () async {
-                                  var source = type == ImageSourceType.camera
-                                      ? ImageSource.camera
-                                      : ImageSource.gallery;
-                                  XFile image = await imagePicker.pickImage(
-                                      source: source, imageQuality: 50, preferredCameraDevice: CameraDevice.front);
-                                  await userRepository?.uploadAvatar(image, null).then((value){
-                                    _image = value;
-                                    setState(() {
-                                      // _image = File(image.path);
-                                    });
-                                  });
-                                },
-                                child: Container(
-                                  width: dev_height > dev_width
-                                      ? dev_width / 4
-                                      : dev_height / 4,
-                                  height: dev_height > dev_width
-                                      ? dev_width / 4
-                                      : dev_height / 4,
-                                  child: Image.network(_image, fit: BoxFit.fill),
-                                ),
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(dev_width),
+                              child: Stack(
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () async {
+                                      var source =
+                                          type == ImageSourceType.camera
+                                              ? ImageSource.camera
+                                              : ImageSource.gallery;
+                                      XFile image = await imagePicker.pickImage(
+                                          source: source,
+                                          imageQuality: 50,
+                                          preferredCameraDevice:
+                                              CameraDevice.front);
+                                      await userRepository
+                                          ?.uploadAvatar(image, null)
+                                          .then((value) {
+                                        _image = value;
+                                        setState(() {
+                                          // _image = File(image.path);
+                                        });
+                                      });
+                                    },
+                                    child: Container(
+                                      width: dev_height > dev_width
+                                          ? dev_width / 4
+                                          : dev_height / 4,
+                                      height: dev_height > dev_width
+                                          ? dev_width / 4
+                                          : dev_height / 4,
+                                      child: Image.network(_image,
+                                          fit: BoxFit.cover),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: dev_height > dev_width
+                                        ? dev_width / 3
+                                        : dev_height / 3,
+                                    height: dev_height > dev_width
+                                        ? dev_width / 2.9
+                                        : dev_height / 3,
+                                  )
+                                ],
                               ),
-                              Container(
-                                width: dev_height > dev_width
-                                    ? dev_width / 3
-                                    : dev_height / 3,
-                                height: dev_height > dev_width
-                                    ? dev_width / 2.9
-                                    : dev_height / 3,
-                              )
-                            ],
-                          ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: -2,
+                              child: buildEditIcon(Colors.black),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -249,7 +273,7 @@ int v = 0;
                           ),
                           SizedBox(
                             width: 2 * dev_width / 3,
-                            child:  Center(
+                            child: Center(
                               child: Text(
                                 user?.email ?? "",
                                 style: const TextStyle(
@@ -262,14 +286,14 @@ int v = 0;
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
             ),
           ),
         ),
-        Align(
+        /* Align(
           alignment: Alignment(1, 0.99),
           child: Container(
             width: dev_width / 6,
@@ -292,8 +316,35 @@ int v = 0;
               ),
             ),
           ),
-        )
+        ) */
       ],
     );
   }
+
+  Widget buildEditIcon(Color color) => buildCircle(
+        color: Colors.white,
+        all: 3,
+        child: buildCircle(
+          color: color,
+          all: 8,
+          child: Icon(
+            Icons.edit,
+            color: Colors.white,
+            size: 15,
+          ),
+        ),
+      );
+
+  Widget buildCircle({
+    required Widget child,
+    required double all,
+    required Color color,
+  }) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
 }
