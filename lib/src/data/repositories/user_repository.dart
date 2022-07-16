@@ -78,5 +78,12 @@ class UserRepository {
     return triviaUsers.docs;
   }
 
+  Future<void> updatePseudo(String email, String pseudo) async{
+    String docId = encryptEmail(email);
+    TriviaUser? user = await _userFireBase.getUserById(docId);
+    user?.setPseudo = pseudo;
+    _userFireBase.updateUser(user!, encryptEmail(email));
+  }
+
 }
 

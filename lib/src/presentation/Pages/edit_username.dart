@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quizz_game/src/data/repositories/auth_repository.dart';
 import 'package:quizz_game/src/data/repositories/user_repository.dart';
 import 'package:quizz_game/src/data/DataSource/remote/user_firebase.dart';
+import 'package:quizz_game/src/data/DataSource/remote/auth_firebase.dart';
 import 'package:quizz_game/src/data/entities/user.dart';
 import 'package:quizz_game/src/presentation/Pages/edit_password.dart';
+import 'package:quizz_game/src/presentation/Widgets/bootstrap.dart';
 
 class EditUsernamePage extends StatefulWidget {
   @override
@@ -11,22 +14,35 @@ class EditUsernamePage extends StatefulWidget {
 }
 
 class EditUsernamePageState extends State<EditUsernamePage> {
-  var imagePicker;
-  var type;
+  @override
+  void initState() {
+    super.initState();
+    checkUser();
+  }
 
   final _formKey = GlobalKey<FormState>();
   final FocusScopeNode _focusScopeNode = FocusScopeNode();
   final _controllerPassword = TextEditingController();
+  final _controllerConfirmPassword = TextEditingController();
   final _controllerPseudo = TextEditingController();
   final AuthRepository? authRepository = AuthRepository.getInstance();
 
   final UserRepository? userRepository = UserRepository.getInstance();
   final UserFireBase? userFireBase = UserFireBase.getInstance();
+  final AuthFirebase? authFirebase = AuthFirebase.getInstance();
+  final FirebaseAuth _fireBaseAuth = FirebaseAuth.instance;
 
   TriviaUser? user = TriviaUser();
 
   void _handleSubmitted(String value) {
     _focusScopeNode.nextFocus();
+  }
+
+  void checkUser() async {
+    String? email = authRepository?.getUser();
+    await userRepository?.getUserByEmail(email).then((value) => setState(() {
+          user = value;
+        }));
   }
 
   @override
@@ -98,7 +114,7 @@ class EditUsernamePageState extends State<EditUsernamePage> {
                             enabledBorder: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.black, width: 0.5),
+                                  BorderSide(color: Colors.black, width: 0.5),
                             ),
                             hintText: 'Password'),
                       ),
@@ -111,7 +127,7 @@ class EditUsernamePageState extends State<EditUsernamePage> {
                         onTap: () {},
                         textInputAction: TextInputAction.next,
                         onFieldSubmitted: _handleSubmitted,
-                        controller: _controllerPassword,
+                        controller: _controllerConfirmPassword,
                         validator: (value) {
                           if (value != null && value.isEmpty) {
                             return 'Confirmation is required';
@@ -122,7 +138,7 @@ class EditUsernamePageState extends State<EditUsernamePage> {
                             enabledBorder: OutlineInputBorder(),
                             focusedBorder: OutlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.black, width: 0.5),
+                                  BorderSide(color: Colors.black, width: 0.5),
                             ),
                             hintText: 'Confirm your password'),
                       ),
@@ -137,7 +153,21 @@ class EditUsernamePageState extends State<EditUsernamePage> {
                         child: MaterialButton(
                           minWidth: double.infinity,
                           height: 60,
-                          onPressed: () {},
+                          onPressed: () {
+                            if(_controllerPassword.text == _controllerConfirmPassword.text) {
+                              var cred = EmailAuthProvider.credential(
+                                  email: user!.email!,
+                                  password: _controllerPassword.text);
+                              _fireBaseAuth.currentUser?.reauthenticateWithCredential(cred).then((value) {
+                                userRepository?.updatePseudo(user!.email!, _controllerPseudo.text);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Bootstrap()));
+                              }).catchError((error) {
+                              });
+                            }
+                          },
                           color: Colors.blueAccent[400],
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(40)),
